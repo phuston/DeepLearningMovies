@@ -3,11 +3,6 @@
 #  Author: Angela Chapman
 #  Date: 8/6/2014
 #
-#  This file contains code to accompany the Kaggle tutorial
-#  "Deep learning goes to the movies".  The code in this file
-#  is for Parts 2 and 3 of the tutorial, which cover how to
-#  train a model using Word2Vec.
-#
 # *************************************** #
 
 
@@ -22,11 +17,8 @@ import numpy as np  # Make sure that numpy is imported
 from gensim.models import Word2Vec
 from sklearn.ensemble import RandomForestClassifier
 
-from KaggleWord2VecUtility import KaggleWord2VecUtility
+from Word2VecUtility import Word2VecUtility
 
-
-# ****** Define functions to create average word vectors
-#
 
 def makeFeatureVec(words, model, num_features):
     # Function to average all of the word vectors in a given
@@ -82,10 +74,8 @@ def getAvgFeatureVecs(reviews, model, num_features):
 def getCleanReviews(reviews):
     clean_reviews = []
     for review in reviews["review"]:
-        clean_reviews.append( KaggleWord2VecUtility.review_to_wordlist( review, remove_stopwords=True ))
+        clean_reviews.append(Word2VecUtility.review_to_wordlist( review, remove_stopwords=True ))
     return clean_reviews
-
-
 
 if __name__ == '__main__':
 
@@ -99,12 +89,8 @@ if __name__ == '__main__':
      "and %d unlabeled reviews\n" % (train["review"].size,
      test["review"].size, unlabeled_train["review"].size )
 
-
-
     # Load the punkt tokenizer
     tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
-
-
 
     # ****** Split the labeled and unlabeled training sets into clean sentences
     #
@@ -112,11 +98,11 @@ if __name__ == '__main__':
 
     print "Parsing sentences from training set"
     for review in train["review"]:
-        sentences += KaggleWord2VecUtility.review_to_sentences(review, tokenizer)
+        sentences += Word2VecUtility.review_to_sentences(review, tokenizer)
 
     print "Parsing sentences from unlabeled set"
     for review in unlabeled_train["review"]:
-        sentences += KaggleWord2VecUtility.review_to_sentences(review, tokenizer)
+        sentences += Word2VecUtility.review_to_sentences(review, tokenizer)
 
     # ****** Set parameters and train the word2vec model
     #
@@ -154,8 +140,6 @@ if __name__ == '__main__':
     model.most_similar("queen")
     model.most_similar("awful")
 
-
-
     # ****** Create average vectors for the training and test sets
     #
     print "Creating average feature vecs for training reviews"
@@ -165,7 +149,6 @@ if __name__ == '__main__':
     print "Creating average feature vecs for test reviews"
 
     testDataVecs = getAvgFeatureVecs( getCleanReviews(test), model, num_features )
-
 
     # ****** Fit a random forest to the training set, then make predictions
     #

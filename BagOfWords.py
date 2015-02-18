@@ -33,15 +33,12 @@ if __name__ == '__main__':
 
     print "Cleaning and parsing the training set movie reviews...\n"
     for i in xrange( 0, len(train["review"])):
+        # If the index is evenly divisible by 1000, print a message
+        if( (i+1)%1000 == 0 ):
+            print "Review %d of %d\n" % ( i+1, len(train["review"]) )     
         clean_train_reviews.append(" ".join(Word2Vec.review_to_wordlist(train["review"][i], True)))
 
-    print clean_train_reviews[0]
-
-    raw_input("Press enter to continue...")
-
-
     # ****** Create a bag of words from the training set
-    #
     print "Creating the bag of words...\n"
 
 
@@ -69,7 +66,7 @@ if __name__ == '__main__':
 
 
     # Initialize a Random Forest classifier with 100 trees
-    forest = RandomForestClassifier(n_estimators = 400)
+    forest = RandomForestClassifier(n_estimators = 2000)
 
     # Fit the forest to the training set, using the bag of words as
     # features and the sentiment labels as the response variable
