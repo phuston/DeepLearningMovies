@@ -11,6 +11,8 @@ from nltk.corpus import stopwords
 
 from nltk.stem.porter import *
 
+from gensim.models.doc2vec import LabeledLineSentence
+
 
 class Word2VecUtility(object):
 
@@ -52,8 +54,8 @@ class Word2VecUtility(object):
             # If a sentence is empty, skip it
             if len(raw_sentence) > 0:
                 # Otherwise, call review_to_wordlist to get a list of words
-                sentences.append( Word2VecUtility.review_to_wordlist( raw_sentence, \
-                  remove_stopwords ))
+                sentences.append( LabeledLineSentence(Word2VecUtility.review_to_wordlist( raw_sentence, \
+                  remove_stopwords )))
         #
         # Return the list of sentences (each sentence is a list of words,
         # so this returns a list of lists

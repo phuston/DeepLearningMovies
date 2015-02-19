@@ -14,7 +14,7 @@ from nltk.corpus import stopwords
 import nltk.data
 import logging
 import numpy as np  # Make sure that numpy is imported
-from gensim.models import Word2Vec
+from gensim.models import Doc2Vec
 from sklearn.ensemble import RandomForestClassifier
 
 from Word2VecUtility import Word2VecUtility
@@ -112,15 +112,15 @@ if __name__ == '__main__':
         level=logging.INFO)
 
     # Set values for various parameters
-    num_features = 300    # Word vector dimensionality
-    min_word_count = 40   # Minimum word count
+    num_features = 100    # Word vector dimensionality
+    min_word_count = 5   # Minimum word count
     num_workers = 4       # Number of threads to run in parallel
-    context = 10          # Context window size
+    context = 8          # Context window size
     downsampling = 1e-3   # Downsample setting for frequent words
 
     # Initialize and train the model (this will take some time)
-    print "Training Word2Vec model..."
-    model = Word2Vec(sentences, workers=num_workers, \
+    print "Training Doc2Vec model..."
+    model = Doc2Vec(sentences, workers=num_workers, \
                 size=num_features, min_count = min_word_count, \
                 window = context, sample = downsampling, seed=1)
 
@@ -133,12 +133,12 @@ if __name__ == '__main__':
     model_name = "300features_40minwords_10context"
     model.save(model_name)
 
-    model.doesnt_match("man woman child kitchen".split())
-    model.doesnt_match("france england germany berlin".split())
-    model.doesnt_match("paris berlin london austria".split())
-    model.most_similar("man")
-    model.most_similar("queen")
-    model.most_similar("awful")
+    # model.doesnt_match("man woman child kitchen".split())
+    # model.doesnt_match("france england germany berlin".split())
+    # model.doesnt_match("paris berlin london austria".split())
+    # model.most_similar("man")
+    # model.most_similar("queen")
+    # model.most_similar("awful")
 
     # ****** Create average vectors for the training and test sets
     #
