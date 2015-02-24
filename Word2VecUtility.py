@@ -44,10 +44,8 @@ class Word2VecUtility(object):
     def review_to_sentences( review, tokenizer, remove_stopwords=False ):
         # Function to split a review into parsed sentences. Returns a
         # list of sentences, where each sentence is a list of words
-        #
         # 1. Use the NLTK tokenizer to split the paragraph into sentences
         raw_sentences = tokenizer.tokenize(review.decode('utf8').strip())
-        #
         # 2. Loop over each sentence
         sentences = []
         for raw_sentence in raw_sentences:
