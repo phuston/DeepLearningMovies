@@ -38,6 +38,9 @@ if __name__ == '__main__':
             print "Review %d of %d\n" % ( i+1, len(train["review"]) )     
         clean_train_reviews.append(" ".join(Word2Vec.review_to_wordlist(train["review"][i], True)))
 
+    # ****** Create a bag of words from the training set
+    print "Creating the bag of words...\n"
+
 
     # Initialize the "CountVectorizer" object, which is scikit-learn's
     # bag of words tool.
@@ -63,7 +66,7 @@ if __name__ == '__main__':
 
 
     # Initialize a Random Forest classifier with 100 trees
-    forest = RandomForestClassifier(n_estimators = 200)
+    forest = RandomForestClassifier(n_estimators = 2000)
 
     # Fit the forest to the training set, using the bag of words as
     # features and the sentiment labels as the response variable

@@ -11,7 +11,7 @@ from nltk.corpus import stopwords
 
 from nltk.stem.porter import *
 
-from gensim.models.doc2vec import LabeledLineSentence
+from gensim.models.doc2vec import LabeledSentence
 
 
 class Word2VecUtility(object):
@@ -48,12 +48,18 @@ class Word2VecUtility(object):
         raw_sentences = tokenizer.tokenize(review.decode('utf8').strip())
         # 2. Loop over each sentence
         sentences = []
-        for raw_sentence in raw_sentences:
+        for i in range(len(raw_sentences)):
             # If a sentence is empty, skip it
-            if len(raw_sentence) > 0:
+            if len(raw_sentences[i]) > 0:
                 # Otherwise, call review_to_wordlist to get a list of words
-                sentences.append( LabeledLineSentence(Word2VecUtility.review_to_wordlist( raw_sentence, \
-                  remove_stopwords )))
+                sentences.append(LabeledSentence(Word2VecUtility.review_to_wordlist(raw_sentences[i], remove_stopwords), ['sentence%d' %i]))
+
+        # for raw_sentence in raw_sentences:
+        #     # If a sentence is empty, skip it
+        #     if len(raw_sentence) > 0:
+        #         # Otherwise, call review_to_wordlist to get a list of words
+        #         sentences.append(LabeledSentence(Word2VecUtility.review_to_wordlist( raw_sentence, \
+        #           remove_stopwords ),['']))
         #
         # Return the list of sentences (each sentence is a list of words,
         # so this returns a list of lists
